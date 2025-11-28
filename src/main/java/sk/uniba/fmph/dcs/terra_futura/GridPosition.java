@@ -11,6 +11,9 @@ public final class GridPosition {
     private final int x;
     private final int y;
 
+    private final int leftConstraint = -2;
+    private final int rightConstraint = 2;
+
     /**
      * Creates a new grid position.
      *
@@ -19,7 +22,7 @@ public final class GridPosition {
      * @throws IllegalArgumentException if either coordinate is out of range.
      */
     public GridPosition(final int x, final int y) {
-        if (x < -2 || x > 2 || y < -2 || y > 2) {
+        if (x < leftConstraint || x > rightConstraint || y < leftConstraint || y > rightConstraint) {
             throw new IllegalArgumentException("GridPosition must be in range [-2, 2] for both x and y coordinates.");
         }
 
