@@ -36,7 +36,7 @@ public final class EffectOr implements Effect {
 
     @Override
     public String state() {
-        String joinedEffects = effects.stream().map(Effect::state).collect(Collectors.joining(" OR "));
+        String joinedEffects = effects.stream().map(Effect::state).collect(Collectors.joining(", "));
         return String.format("EffectOr{%s}", joinedEffects);
     }
 }
