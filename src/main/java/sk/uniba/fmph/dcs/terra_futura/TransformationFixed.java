@@ -20,14 +20,14 @@ public final class TransformationFixed implements Effect {
      * @param to        resources that will be gained as output
      * @param pollution the amount of pollution produced by this effect
      */
-    public TransformationFixed(List<Resource> from, List<Resource> to, int pollution) {
+    public TransformationFixed(final List<Resource> from, final List<Resource> to, final int pollution) {
         this.from = Objects.requireNonNull(from, "Output cannot be null");
         this.to = Objects.requireNonNull(to, "Output cannot be null");
         this.pollution = pollution;
     }
 
     @Override
-    public boolean check(List<Resource> input, List<Resource> output, int pollution) {
+    public boolean check(final List<Resource> input, final List<Resource> output, final int pollution) {
         if (input == null || output == null) {
             return false;
         }
