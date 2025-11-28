@@ -15,9 +15,9 @@ public final class ArbitraryBasic implements Effect {
     /**
      * Creates an effect with arbitrary input of the given size.
      *
-     * @param from
-     * @param to
-     * @param pollution
+     * @param from      number of resources that will be paid
+     * @param to        resources that will be gained as output
+     * @param pollution the amount of pollution produced by this effect
      */
     public ArbitraryBasic(final int from, final List<Resource> to, final int pollution) {
         this.from = from;
@@ -41,6 +41,6 @@ public final class ArbitraryBasic implements Effect {
 
     @Override
     public String state() {
-        return String.format("ArbitraryBasic(from=%s, to=%s, pollution=%s)", from, to, pollution);
+        return String.format("ArbitraryBasic{from=%s, to=%s, pollution=%s}", from, to, pollution);
     }
 }
