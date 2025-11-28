@@ -21,7 +21,7 @@ public final class ArbitraryBasic implements Effect {
      */
     public ArbitraryBasic(final int from, final List<Resource> to, final int pollution) {
         this.from = from;
-        this.to = Objects.requireNonNull(to, "Output cannot be null");
+        this.to = List.copyOf(Objects.requireNonNull(to, "Output cannot be null"));
         this.pollution = pollution;
     }
 
@@ -41,6 +41,6 @@ public final class ArbitraryBasic implements Effect {
 
     @Override
     public String state() {
-        return String.format("ArbitraryBasic{from=%s, to=%s, pollution=%s}", from, to, pollution);
+        return String.format("ArbitraryBasic{from=%d, to=%s, pollution=%d}", from, to, pollution);
     }
 }

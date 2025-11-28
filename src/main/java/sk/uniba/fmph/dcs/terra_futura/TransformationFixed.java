@@ -21,8 +21,8 @@ public final class TransformationFixed implements Effect {
      * @param pollution the amount of pollution produced by this effect
      */
     public TransformationFixed(final List<Resource> from, final List<Resource> to, final int pollution) {
-        this.from = Objects.requireNonNull(from, "Output cannot be null");
-        this.to = Objects.requireNonNull(to, "Output cannot be null");
+        this.from = List.copyOf(Objects.requireNonNull(from, "Input cannot be null"));
+        this.to = List.copyOf(Objects.requireNonNull(to, "Output cannot be null"));
         this.pollution = pollution;
     }
 
@@ -42,6 +42,6 @@ public final class TransformationFixed implements Effect {
 
     @Override
     public String state() {
-        return String.format("TransformationFixed{from=%s, to=%s, pollution=%s}", from, to, pollution);
+        return String.format("TransformationFixed{from=%s, to=%s, pollution=%d}", from, to, pollution);
     }
 }
