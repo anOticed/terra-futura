@@ -18,6 +18,9 @@ public final class Card {
     private final Effect lowerEffect;
     private final int pollutionSpaces;
 
+    private static final int MIN_POLLUTION_SPACES = 0;
+    private static final int MAX_POLLUTION_SPACES = 3;
+
     /**
      * Creates a card with the given resources, effects, and pollution capacity.
      *
@@ -27,6 +30,9 @@ public final class Card {
      * @param pollutionSpaces number of safe pollution spaces on the card (0..3)
      */
     public Card(final List<Resource> resources, final Effect upperEffect, final Effect lowerEffect, final int pollutionSpaces) {
+        if (pollutionSpaces < MIN_POLLUTION_SPACES || pollutionSpaces > MAX_POLLUTION_SPACES) {
+            throw new IllegalArgumentException("Invalid pollution spaces number");
+        }
         this.resources = new ArrayList<>(Objects.requireNonNull(resources, "Resources cannot be null"));
         this.upperEffect = upperEffect;
         this.lowerEffect = lowerEffect;
