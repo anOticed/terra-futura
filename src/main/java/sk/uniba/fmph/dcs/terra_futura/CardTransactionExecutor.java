@@ -63,7 +63,7 @@ public final class CardTransactionExecutor {
     }
 
     /**
-     * Groups resource pairs by grip position.
+     * Groups resource pairs by grid position.
      *
      * @param resourcePairs list of (resource, position) pairs
      * @return map from grid position to a list of resources
@@ -206,11 +206,11 @@ public final class CardTransactionExecutor {
     private static void applyAdditions(final Grid grid, final Map<GridPosition, List<Resource>> resourcesToAdd) {
         for (Map.Entry<GridPosition, List<Resource>> entry : resourcesToAdd.entrySet()) {
             final GridPosition position = entry.getKey();
-            final List<Resource> toAdd = entry.getValue();
+            final List<Resource> toRemove = entry.getValue();
 
             final Optional<Card> cardOptional = grid.getCard(position);
             if (cardOptional.isPresent()) {
-                cardOptional.get().putResources(toAdd);
+                cardOptional.get().putResources(toRemove);
             }
         }
     }
