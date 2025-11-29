@@ -1,5 +1,8 @@
 package sk.uniba.fmph.dcs.terra_futura;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -158,6 +161,32 @@ public final class Card {
      */
     public boolean hasAssistance() {
         return (upperEffect != null && upperEffect.hasAssistance()) || (lowerEffect != null && lowerEffect.hasAssistance());
+    }
+
+    /**
+     * @return the state of the card as a JSON string
+     */
+    public String state() {
+        JSONObject result = new JSONObject();
+
+        JSONArray resourcesArray = new JSONArray();
+        for (Resource resource : resources) {
+            resourcesArray.put(resource.name());
+        }
+        result.put("resources", resourcesArray);
+        result.put("inactive", isInactive());
+        result.put("hasAssistance", hasAssistance());
+
+        if (upperEffect != null) {
+            result.put("upperEffect", upperEffect.state());
+        }
+        if (lowerEffect != null) {
+            result.put("lowerEffect", lowerEffect.state());
+        }
+
+        result.put("pollutionSpaces", pollutionSpaces);
+
+        return result.toString();
     }
 
     /**
