@@ -63,17 +63,17 @@ public final class CardTransactionExecutor {
     }
 
     /**
-     * Groups resource moves by grip position.
+     * Groups resource pairs by grip position.
      *
-     * @param moves list of (resource, position) pairs
+     * @param resourcePairs list of (resource, position) pairs
      * @return map from grid position to a list of resources
      */
-    private static Map<GridPosition, List<Resource>> groupResourcesByPosition(final List<Pair<Resource, GridPosition>> moves) {
+    private static Map<GridPosition, List<Resource>> groupResourcesByPosition(final List<Pair<Resource, GridPosition>> resourcePairs) {
         final Map<GridPosition, List<Resource>> grouped = new HashMap<>();
 
-        for (Pair<Resource, GridPosition> move : moves) {
-            final GridPosition position = move.getRight();
-            grouped.computeIfAbsent(position, key -> new ArrayList<>()).add(move.getLeft());
+        for (Pair<Resource, GridPosition> pair : resourcePairs) {
+            final GridPosition position = pair.getRight();
+            grouped.computeIfAbsent(position, key -> new ArrayList<>()).add(pair.getLeft());
         }
 
         return grouped;
