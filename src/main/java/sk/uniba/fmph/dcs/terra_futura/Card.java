@@ -16,7 +16,7 @@ public final class Card {
     private final int pollutionSpaces;
 
     /**
-     * Creates a card with the given resources, effects and pollution capacity.
+     * Creates a card with the given resources, effects, and pollution capacity.
      *
      * @param resources       resources stored on the card
      * @param upperEffect     effect on the upper part of the card, may be null
@@ -108,6 +108,56 @@ public final class Card {
         }
 
         this.resources.addAll(resources);
+    }
+
+    /**
+     * Checks whether the upper effect of the card can be applied with the
+     * given input, output, and produced pollution.
+     *
+     * @param input     resources the player wants to pay
+     * @param output    resources the player wants to gain
+     * @param pollution pollution produced by the effect
+     * @return {@code true} if the card is active, has an upper effect and
+     * the effect can be applied, {@code false} otherwise
+     */
+    public boolean check(final List<Resource> input, final List<Resource> output, final int pollution) {
+        return checkEffect(input, output, pollution, upperEffect);
+    }
+
+    /**
+     * Checks whether the lower effect of the card can be applied with the
+     * given input, output, and produced pollution.
+     *
+     * @param input     resources the player wants to pay
+     * @param output    resources the player wants to gain
+     * @param pollution pollution produced by the effect
+     * @return {@code true} if the card is active, has a lower effect and
+     * the effect can be applied, {@code false} otherwise
+     */
+    public boolean checkLower(final List<Resource> input, final List<Resource> output, final int pollution) {
+        return checkEffect(input, output, pollution, lowerEffect);
+    }
+
+    // Shared implementation for upper/lower effect checks
+    private boolean checkEffect(final List<Resource> input, final List<Resource> output, final int pollution, final Effect effect) {
+        if (effect == null) {
+            return false;
+        }
+        if (input == null || output == null) {
+            return false;
+        }
+        if (isInactive()) {
+            return false;
+        }
+
+        return effect.check(input, output, pollution);
+    }
+
+    /**
+     * @return {@code true} if the card has an upper or lower effect that provides assistance, {@code false} otherwise
+     */
+    public boolean hasAssistance() {
+        return (upperEffect != null && upperEffect.hasAssistance()) || (lowerEffect != null && lowerEffect.hasAssistance());
     }
 
     /**
