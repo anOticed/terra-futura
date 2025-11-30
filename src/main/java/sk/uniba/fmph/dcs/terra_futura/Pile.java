@@ -1,59 +1,46 @@
 package sk.uniba.fmph.dcs.terra_futura;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Very simple stub implementation of a pile of cards.
- * Only the operations required by MoveCard are implemented.
+ * Minimal public stub of the Pile concept used by blue classes.
+ * Real game logic lives in the private red implementation.
  */
 public final class Pile {
+    public static final int MAX_VISIBLE_CARDS = 4;
+    private final List<Card> visibleCards;
+    private final List<Card> hiddenCards;
 
-    public static final int MAX_VISIBLE_CARDS = 3;
 
-    private final List<Card> cards = new ArrayList<>();
+    public Pile(final List<Card> visibleCards, final List<Card> hiddenCards) {
+        this.visibleCards = new ArrayList<>(visibleCards == null ? Collections.emptyList() : visibleCards);
+        this.hiddenCards = new ArrayList<>(hiddenCards == null ? Collections.emptyList() : hiddenCards);
+    }
 
-    /**
-     * Returns the card with the given (1-based) index if it exists.
-     */
     public Optional<Card> getCard(final int index) {
-        int realIndex = index - 1; // convert 1-based to 0-based
-        if (realIndex < 0 || realIndex >= cards.size()) {
+        if (index < 1 || index > visibleCards.size()) {
             return Optional.empty();
         }
-        return Optional.of(cards.get(realIndex));
+        return Optional.ofNullable(visibleCards.get(index - 1));
     }
 
-    /**
-     * Removes the card with the given (1-based) index from the pile.
-     * If the index is invalid, nothing happens.
-     */
     public void takeCard(final int index) {
-        int realIndex = index - 1;
-        if (realIndex >= 0 && realIndex < cards.size()) {
-            cards.remove(realIndex);
+        if (index < 1 || index > visibleCards.size()) {
+            throw new IllegalArgumentException("Invalid index: " + index);
         }
+        visibleCards.remove(index - 1);
     }
 
-    /**
-     * Removes the last card from the pile, if any.
-     */
     public void removeLastCard() {
-        if (!cards.isEmpty()) {
-            cards.remove(cards.size() - 1);
+        if (!visibleCards.isEmpty()) {
+            visibleCards.remove(visibleCards.size() - 1);
         }
     }
 
-    /**
-     * Returns a simple textual representation of the pile.
-     */
     public String state() {
-        return "Pile(size=" + cards.size() + ")";
-    }
-
-    // Helper method for tests
-    public void addCard(final Card card) {
-        cards.add(card);
+        return "Pile{visible=" + visibleCards.size() + ", hidden=" + hiddenCards.size() + "}";
     }
 }
