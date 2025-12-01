@@ -1,12 +1,13 @@
 package sk.uniba.fmph.dcs.terra_futura;
 
+import java.util.Objects;
+
 /**
  * Coordinates of a card in the grid.
  *
  * Coordinates are in the range [-2, 2] for both axes.
  * The (0, 0) position denotes the starting card.
  */
-
 public final class GridPosition {
     private final int x;
     private final int y;
@@ -41,5 +42,23 @@ public final class GridPosition {
     @Override
     public String toString() {
         return "(" + x + "," + y + ")";
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof GridPosition)) {
+            return false;
+        }
+
+        GridPosition other = (GridPosition) o;
+        return x == other.x && y == other.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }
