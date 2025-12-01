@@ -210,6 +210,20 @@ public final class Card {
     }
 
     /**
+     * @return {@code true} if the card is active (not polluted), {@code false} otherwise.
+     */
+    public boolean isActive() {
+        return !isInactive();
+    }
+
+    /**
+     * @return resources currently stored on the card
+     */
+    public List<Resource> getResources() {
+        return new ArrayList<>(resources);
+    }
+
+    /**
      * Helper method to check whether 'available' contains all resources from 'requested'
      * as a multiset (with duplicates).
      *
